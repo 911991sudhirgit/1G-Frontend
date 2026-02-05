@@ -2,6 +2,14 @@
  * Heroku (and production) server: serves built Angular app and runtime config.
  * Set API_URL on Heroku to your backend URL (e.g. https://your-backend.herokuapp.com/api).
  */
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+  process.exit(1);
+});
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled rejection at:', p, 'reason:', reason);
+});
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
@@ -29,14 +37,19 @@ app.get('/config.json', (req, res) => {
 app.use(express.static(DIST));
 
 // SPA fallback: all other routes serve index.html (don't crash if file missing)
+// Express 5: sendFile(path, options, callback); Express 4: sendFile(path, callback). Use options object for both.
 app.get('*', (req, res) => {
-  res.sendFile(indexPath, (err) => {
+  res.sendFile(indexPath, {}, (err) => {
     if (err) {
       res.status(err.status || 500).send(err.message || 'Not found');
     }
   });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log('Serving on port', PORT, 'from', DIST);
+});
+server.on('error', (err) => {
+  console.error('Server listen error:', err);
+  process.exit(1);
 });
