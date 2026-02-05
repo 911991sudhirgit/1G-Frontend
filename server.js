@@ -36,16 +36,18 @@ app.get('/config.json', (req, res) => {
 // Angular app (static files)
 app.use(express.static(DIST));
 
-// SPA fallback: serve index.html for any unmatched GET (Express 5: '*' invalid, use named catch-all)
-const sendIndex = (req, res) => {
-  res.sendFile(indexPath, {}, (err) => {
-    if (err) {
-      res.status(err.status || 500).send(err.message || 'Not found');
-    }
-  });
-};
-app.get('/', sendIndex);
-app.get('/:path(*)', sendIndex);
+// SPA fallback: any request not handled above gets index.html (no wildcard route; Express 5 rejects '*' and '/:path(*)')
+app.use((req, res) => {
+  if (req.method === 'GET') {
+    res.sendFile(indexPath, {}, (err) => {
+      if (err) {
+        res.status(err.status || 500).send(err.message || 'Not found');
+      }
+    });
+  } else {
+    res.status(404).send('Not found');
+  }
+});
 
 const server = app.listen(PORT, () => {
   console.log('Serving on port', PORT, 'from', DIST);
