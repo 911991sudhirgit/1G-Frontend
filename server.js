@@ -36,15 +36,16 @@ app.get('/config.json', (req, res) => {
 // Angular app (static files)
 app.use(express.static(DIST));
 
-// SPA fallback: all other routes serve index.html (don't crash if file missing)
-// Express 5: sendFile(path, options, callback); Express 4: sendFile(path, callback). Use options object for both.
-app.get('*', (req, res) => {
+// SPA fallback: serve index.html for any unmatched GET (Express 5: '*' invalid, use named catch-all)
+const sendIndex = (req, res) => {
   res.sendFile(indexPath, {}, (err) => {
     if (err) {
       res.status(err.status || 500).send(err.message || 'Not found');
     }
   });
-});
+};
+app.get('/', sendIndex);
+app.get('/:path(*)', sendIndex);
 
 const server = app.listen(PORT, () => {
   console.log('Serving on port', PORT, 'from', DIST);
