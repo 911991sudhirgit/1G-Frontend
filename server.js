@@ -29,7 +29,7 @@ if (!fs.existsSync(indexPath)) {
 
 // Runtime config: frontend reads this to know the backend API URL
 app.get('/config.json', (req, res) => {
-  const apiUrl = process.env.API_URL || 'http://localhost:8080/api';
+  const apiUrl = process.env.API_URL || 'https://og-backend-ec80a37e82c0.herokuapp.com/api';
   res.json({ apiUrl });
 });
 

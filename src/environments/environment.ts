@@ -4,6 +4,6 @@
  */
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: 'https://og-backend-ec80a37e82c0.herokuapp.com/api',
   googleMapsApiKey: '', // Optional: set for map and drop-pin
 };
