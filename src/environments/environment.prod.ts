@@ -1,9 +1,9 @@
 /**
  * Production environment.
- * OTP is sent by the backend via MSG91 (configure MSG91 in backend; see MSG91_CREDENTIALS.md).
+ * Backend API: set here or override at runtime via /config.json (Heroku: set API_URL on frontend app).
  */
 export const environment = {
   production: true,
-  apiUrl: '/api',
+  apiUrl: 'https://og-backend-ec80a37e82c0.herokuapp.com/api',
   googleMapsApiKey: '', // Optional: set in build/env for production
 };
