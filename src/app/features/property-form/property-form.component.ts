@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -165,13 +165,11 @@ import { PropertyMapComponent } from '../../shared/property-map/property-map.com
                 </div>
                 <button type="button" class="btn btn-primary add-url-btn" (click)="addImageByUrl()">Add URL</button>
               </div>
-              <small class="images-hint">Paste an image URL above and click Add URL, or upload a file below (when available). At least one image is recommended.</small>
-              <input type="file" #fileInput accept="image/jpeg,image/png,image/webp,image/gif" (change)="onFileSelected($event)" class="file-input hidden" />
+              <small class="images-hint">Paste an image URL above and click Add URL. Use a direct link to an image (e.g. ending in .jpg, .png). At least one image is recommended.</small>
               <div class="image-preview-row" *ngFor="let url of imageUrls; let i = index">
-                <img *ngIf="url" [src]="imagePreviewUrl(url)" alt="Preview" class="image-preview" />
+                <img *ngIf="url" [src]="imagePreviewUrl(url)" alt="Preview" class="image-preview" (error)="onImageError($event)" />
                 <span *ngIf="!url" class="preview-placeholder">No image</span>
                 <div class="image-actions">
-                  <button type="button" class="btn btn-outline btn-sm" (click)="triggerUpload(i)">{{ url ? 'Replace' : 'Upload' }}</button>
                   <button type="button" class="btn btn-outline btn-sm" (click)="removeImage(i)">Remove</button>
                 </div>
               </div>
@@ -364,10 +362,6 @@ export class PropertyFormComponent implements OnInit {
   stateNames = getStateNames();
   citiesForState: string[] = [];
 
-  @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
-  currentImageIndex: number | null = null;
-  uploading = false;
-
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -458,48 +452,26 @@ export class PropertyFormComponent implements OnInit {
 
   imagePreviewUrl(url: string): string {
     if (!url) return '';
+    const u = (url || '').trim();
+    if (!u) return '';
     const base = this.config.apiUrl.replace(/\/$/, '');
-    return url.startsWith('http') ? url : base + (url.startsWith('/') ? url : '/' + url);
+    return u.startsWith('http') ? u : base + (u.startsWith('/') ? u : '/' + u);
   }
 
-  triggerUpload(index: number) {
-    this.currentImageIndex = index;
-    this.fileInput?.nativeElement?.click();
-  }
-
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
-    input.value = '';
-    if (!file) return;
-    this.uploading = true;
-    this.api.uploadFile('/upload', file).subscribe({
-      next: (res) => {
-        const url = res.url;
-        if (this.currentImageIndex !== null && this.currentImageIndex >= 0 && this.currentImageIndex < this.imageUrls.length) {
-          this.imageUrls[this.currentImageIndex] = url;
-        } else {
-          this.imageUrls.push(url);
-        }
-        this.currentImageIndex = null;
-        this.uploading = false;
-        this.toast.success('Image uploaded');
-      },
-      error: (e) => {
-        this.uploading = false;
-        this.currentImageIndex = null;
-        const msg = e.status === 401
-          ? 'Session expired or not logged in. Please log in again and try uploading.'
-          : (e.error?.message || 'Upload failed');
-        this.toast.error(msg);
-      },
-    });
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.src = 'https://placehold.co/160x120?text=Image+unavailable';
+    img.onerror = null;
   }
 
   addImageByUrl() {
-    const url = this.newImageUrl?.trim();
+    const url = (this.newImageUrl || '').trim();
     if (!url) {
       this.toast.warning('Enter an image URL');
+      return;
+    }
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      this.toast.warning('URL must start with http:// or https://');
       return;
     }
     this.imageUrls.push(url);
@@ -527,8 +499,8 @@ export class PropertyFormComponent implements OnInit {
 
     this.submitting = true;
     const formValue = this.form.value;
-    const images = this.imageUrls.filter(url => url.trim()).map((url, idx) => ({
-      imageUrl: url.trim(),
+    const images = this.imageUrls.filter(url => (url || '').trim()).map((url, idx) => ({
+      imageUrl: (url || '').trim(),
       displayOrder: idx,
     }));
 
