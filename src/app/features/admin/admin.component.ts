@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -573,6 +573,20 @@ interface UserRow {
     .user-name { font-weight: 600; margin-bottom: 0.25rem; }
     .user-email { font-size: 0.875rem; color: var(--text-muted); }
     .user-mobile { font-size: 0.875rem; color: var(--text-muted); }
+    @media (max-width: 768px) {
+      .admin-page { padding: 1rem 0 2rem; }
+      .admin-header h1 { font-size: 1.75rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+      .pending-section { padding: 1.25rem; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .pending-item { flex-direction: column; align-items: flex-start; }
+      .header-actions { flex-direction: column; align-items: flex-start; }
+      .visits-table-wrap { font-size: 0.875rem; }
+      .visits-table th, .visits-table td { padding: 0.5rem 0.5rem; }
+    }
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+    }
   `],
 })
 export class AdminComponent implements OnInit {
@@ -602,18 +616,25 @@ export class AdminComponent implements OnInit {
   modalUsers: UserRow[] = [];
   loadingModalUsers = false;
 
-  constructor(private api: ApiService, private toast: ToastrService) {}
+  constructor(private api: ApiService, private toast: ToastrService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.api.get<Record<string, number>>('/admin/metrics').subscribe({
-      next: (m) => (this.metrics = m as typeof this.metrics),
+      next: (m) => {
+        this.metrics = m as typeof this.metrics;
+        this.cdr.markForCheck();
+      },
     });
     this.api.get<Property[]>('/admin/properties/pending', { page: 0, size: 50 }).subscribe({
       next: (list) => {
-        this.pending = list;
+        this.pending = Array.isArray(list) ? list : [];
         this.loadingPending = false;
+        this.cdr.markForCheck();
       },
-      error: () => (this.loadingPending = false),
+      error: () => {
+        this.loadingPending = false;
+        this.cdr.markForCheck();
+      },
     });
     this.loadAgents();
     this.loadPendingVisits();
@@ -658,10 +679,12 @@ export class AdminComponent implements OnInit {
       next: (res) => {
         this.allPropertiesResponse = res;
         this.loadingAllProperties = false;
+        this.cdr.markForCheck();
       },
       error: () => {
         this.loadingAllProperties = false;
         this.toast.error('Failed to load properties');
+        this.cdr.markForCheck();
       },
     });
   }

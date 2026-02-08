@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -496,6 +496,25 @@ interface Alert {
         grid-template-columns: 1fr;
       }
     }
+    @media (max-width: 768px) {
+      .dashboard-page { padding: 1rem 0 2rem; }
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+      }
+      .dashboard-header h1 { font-size: 1.75rem; }
+      .dashboard-header p { font-size: 1rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+      .stat-card { padding: 1.25rem; }
+      .stat-value { font-size: 1.75rem; }
+      .visit-item, .property-item { flex-direction: column; align-items: flex-start; }
+      .property-thumb { width: 100%; height: 160px; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
   `],
 })
 export class DashboardComponent implements OnInit {
@@ -512,7 +531,7 @@ export class DashboardComponent implements OnInit {
   rescheduling = false;
   sendingEmailVerification = false;
 
-  constructor(public auth: AuthService, private api: ApiService, private config: ConfigService, private toast: ToastrService) {}
+  constructor(public auth: AuthService, private api: ApiService, private config: ConfigService, private toast: ToastrService, private cdr: ChangeDetectorRef) {}
 
   resolveImageUrl(url: string | undefined): string {
     if (!url) return 'https://placehold.co/100';
@@ -531,25 +550,29 @@ export class DashboardComponent implements OnInit {
   loadVisits() {
     this.api.get<{ content: SiteVisit[] }>('/sitevisits/my', { page: 0, size: 5 }).subscribe({
       next: (res) => {
-        setTimeout(() => {
-          this.visits = res.content || [];
-          this.loadingVisits = false;
-        }, 0);
+        this.visits = res.content || [];
+        this.loadingVisits = false;
+        this.cdr.markForCheck();
       },
-      error: () => setTimeout(() => (this.loadingVisits = false), 0),
+      error: () => {
+        this.loadingVisits = false;
+        this.cdr.markForCheck();
+      },
     });
   }
 
   loadRecentProperties() {
     this.api.get<PageResponse<Property>>('/properties/my', { page: 0, size: 5 }).subscribe({
       next: (res) => {
-        setTimeout(() => {
-          this.recentProperties = res.content || [];
-          this.myPropertiesCount = res.totalElements;
-          this.loadingProperties = false;
-        }, 0);
+        this.recentProperties = res.content || [];
+        this.myPropertiesCount = res.totalElements;
+        this.loadingProperties = false;
+        this.cdr.markForCheck();
       },
-      error: () => setTimeout(() => (this.loadingProperties = false), 0),
+      error: () => {
+        this.loadingProperties = false;
+        this.cdr.markForCheck();
+      },
     });
   }
 
@@ -587,16 +610,14 @@ export class DashboardComponent implements OnInit {
     this.sendingEmailVerification = true;
     this.auth.sendEmailVerification().subscribe({
       next: () => {
-        setTimeout(() => {
-          this.toast.success('Verification link sent to your email. Check your inbox.');
-          this.sendingEmailVerification = false;
-        }, 0);
+        this.toast.success('Verification link sent to your email. Check your inbox.');
+        this.sendingEmailVerification = false;
+        this.cdr.markForCheck();
       },
       error: (err) => {
-        setTimeout(() => {
-          this.toast.error(err.error?.message || 'Failed to send verification email');
-          this.sendingEmailVerification = false;
-        }, 0);
+        this.toast.error(err.error?.message || 'Failed to send verification email');
+        this.sendingEmailVerification = false;
+        this.cdr.markForCheck();
       },
     });
   }

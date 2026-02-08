@@ -173,22 +173,41 @@ import { AuthService } from '../../services/auth.service';
     }
     @media (max-width: 768px) {
       .header-inner {
-        padding: 0.875rem 1rem;
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
       }
       .nav {
         gap: 0.25rem;
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 2px;
       }
       .nav a {
-        padding: 0.5rem 0.75rem;
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8125rem;
+        white-space: nowrap;
       }
-      .nav a span {
-        display: none;
-      }
-      .user-menu {
+      .user-menu .user-info {
         display: none;
       }
       .logo {
-        font-size: 1.375rem;
+        font-size: 1.25rem;
+      }
+      .logo-icon {
+        font-size: 1.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .header-inner {
+        padding: 0.5rem 0.75rem;
+      }
+      .nav a {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.75rem;
       }
     }
   `],

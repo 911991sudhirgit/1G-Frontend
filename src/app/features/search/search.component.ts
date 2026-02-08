@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -440,13 +440,30 @@ const PRICE_STEP = 100_000;
     @media (max-width: 1024px) {
       .search-layout {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem 1.5rem;
       }
       .filters-sidebar {
         position: static;
       }
       .filters-card {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
+        padding: 1.25rem;
       }
+      .search-header {
+        padding: 2rem 0;
+        margin-bottom: 1.5rem;
+      }
+      .search-header h1 { font-size: 2rem; }
+      .results-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    }
+    @media (max-width: 576px) {
+      .search-layout { padding-left: 1rem; padding-right: 1rem; }
+      .search-header h1 { font-size: 1.5rem; }
+      .search-header p { font-size: 0.9375rem; }
+      .filter-section { margin-bottom: 1.25rem; }
+      .results-header h2 { font-size: 1.25rem; }
+      .pagination { flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
     }
   `],
 })
@@ -475,16 +492,25 @@ export class SearchComponent implements OnInit {
   stateNames = getStateNames();
   citiesForState: string[] = [];
 
-  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private api: ApiService, private route: ActivatedRoute, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params['state']) this.state = params['state'];
-      if (params['city']) this.city = params['city'];
-      if (params['listingType']) this.listingType = params['listingType'];
-      if (params['propertyType']) this.propertyType = params['propertyType'];
-      this.updateCitiesForState();
-      this.search();
+    const params = this.route.snapshot.queryParams;
+    if (params['state']) this.state = params['state'];
+    if (params['city']) this.city = params['city'];
+    if (params['listingType']) this.listingType = params['listingType'];
+    if (params['propertyType']) this.propertyType = params['propertyType'];
+    this.updateCitiesForState();
+    this.search();
+    this.route.queryParams.subscribe(q => {
+      if (q['state'] !== this.state || q['city'] !== this.city || q['listingType'] !== this.listingType || q['propertyType'] !== this.propertyType) {
+        if (q['state']) this.state = q['state'];
+        if (q['city']) this.city = q['city'];
+        if (q['listingType']) this.listingType = q['listingType'];
+        if (q['propertyType']) this.propertyType = q['propertyType'];
+        this.updateCitiesForState();
+        this.search();
+      }
     });
   }
 
@@ -518,12 +544,16 @@ export class SearchComponent implements OnInit {
 
     this.api.get<PageResponse<Property>>('/properties/search', params).subscribe({
       next: (res) => {
-        this.properties = res.content;
-        this.totalPages = res.totalPages;
-        this.totalElements = res.totalElements;
+        this.properties = res.content ?? [];
+        this.totalPages = res.totalPages ?? 0;
+        this.totalElements = res.totalElements ?? 0;
         this.loading = false;
+        this.cdr.markForCheck();
       },
-      error: () => (this.loading = false),
+      error: () => {
+        this.loading = false;
+        this.cdr.markForCheck();
+      },
     });
   }
 

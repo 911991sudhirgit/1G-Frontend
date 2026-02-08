@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -396,15 +396,19 @@ export class HomeComponent implements OnInit {
   searchType = 'buy';
   searchQuery = '';
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.api.get<Property[]>('/properties/public/featured').subscribe({
       next: (data) => {
-        this.featured = data;
+        this.featured = Array.isArray(data) ? data : [];
         this.loading = false;
+        this.cdr.markForCheck();
       },
-      error: () => (this.loading = false),
+      error: () => {
+        this.loading = false;
+        this.cdr.markForCheck();
+      },
     });
   }
 
