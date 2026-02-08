@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
@@ -188,7 +188,7 @@ export class AgentComponent implements OnInit {
   totalElements = 0;
   dueTodayCount = 0;
 
-  constructor(public auth: AuthService, private api: ApiService) {}
+  constructor(public auth: AuthService, private api: ApiService, private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
 
   ngOnInit() {
     this.load();
@@ -198,13 +198,21 @@ export class AgentComponent implements OnInit {
     this.loading = true;
     this.api.get<AgentVisitsResponse>('/agent/sitevisits', { page: this.page, size: this.size }).subscribe({
       next: (res) => {
-        this.visits = res.content || [];
-        this.totalElements = res.totalElements ?? 0;
-        this.totalPages = res.totalPages ?? 0;
-        this.dueTodayCount = res.dueTodayCount ?? 0;
-        this.loading = false;
+        this.ngZone.run(() => {
+          this.visits = (res as any)?.content ?? [];
+          this.totalElements = (res as any)?.totalElements ?? 0;
+          this.totalPages = (res as any)?.totalPages ?? 0;
+          this.dueTodayCount = (res as any)?.dueTodayCount ?? 0;
+          this.loading = false;
+          this.cdr.detectChanges();
+        });
       },
-      error: () => (this.loading = false),
+      error: () => {
+        this.ngZone.run(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        });
+      },
     });
   }
 

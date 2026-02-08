@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../core/services/api.service';
@@ -166,7 +166,9 @@ export class MyPropertiesComponent implements OnInit {
   constructor(
     private api: ApiService,
     private router: Router,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit() {
@@ -178,11 +180,19 @@ export class MyPropertiesComponent implements OnInit {
     this.loading = true;
     this.api.get<PageResponse<Property>>('/properties/my', { page: this.page, size: 12 }).subscribe({
       next: (res) => {
-        this.properties = res.content;
-        this.totalPages = res.totalPages;
-        this.loading = false;
+        this.ngZone.run(() => {
+          this.properties = Array.isArray((res as any)?.content) ? (res as any).content : [];
+          this.totalPages = (res as any)?.totalPages ?? 0;
+          this.loading = false;
+          this.cdr.detectChanges();
+        });
       },
-      error: () => (this.loading = false),
+      error: () => {
+        this.ngZone.run(() => {
+          this.loading = false;
+          this.cdr.detectChanges();
+        });
+      },
     });
   }
 

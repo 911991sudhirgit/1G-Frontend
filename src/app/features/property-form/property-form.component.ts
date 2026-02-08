@@ -10,6 +10,7 @@ import { Property } from '../../core/models/property.model';
 import { ToastrService } from 'ngx-toastr';
 import { getStateNames, getCitiesForState } from '../../core/data/indian-locations';
 import { PropertyMapComponent } from '../../shared/property-map/property-map.component';
+import { resolvePropertyImageUrl } from '../../core/utils/image-url.util';
 
 @Component({
   selector: 'app-property-form',
@@ -451,11 +452,7 @@ export class PropertyFormComponent implements OnInit {
   }
 
   imagePreviewUrl(url: string): string {
-    if (!url) return '';
-    const u = (url || '').trim();
-    if (!u) return '';
-    const base = this.config.apiUrl.replace(/\/$/, '');
-    return u.startsWith('http') ? u : base + (u.startsWith('/') ? u : '/' + u);
+    return resolvePropertyImageUrl(url, this.config.apiUrl);
   }
 
   onImageError(event: Event) {

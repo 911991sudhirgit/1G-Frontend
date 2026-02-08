@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Property } from '../../core/models/property.model';
 import { ConfigService } from '../../core/services/config.service';
+import { resolvePropertyImageUrl } from '../../core/utils/image-url.util';
 
 @Component({
   selector: 'app-property-card',
@@ -11,7 +12,7 @@ import { ConfigService } from '../../core/services/config.service';
   template: `
     <a [routerLink]="['/property', property.id]" class="card property-card">
       <div class="img-wrap">
-        <img [src]="imgUrl" [alt]="property.title" />
+        <img [src]="imgUrl" [alt]="property.title" (error)="onImgError($event)" />
         <div class="overlay-badges">
           <span class="badge badge-listing">{{ property.listingType }}</span>
           <span class="badge badge-premium" *ngIf="property.isPremium">⭐ Premium</span>
@@ -204,14 +205,15 @@ export class PropertyCardComponent {
 
   get imgUrl(): string {
     const imgs = this.property.images;
-    if (imgs?.length) return this.resolveImageUrl(imgs[0].imageUrl);
+    if (imgs?.length) return resolvePropertyImageUrl(imgs[0].imageUrl, this.config.apiUrl);
     return 'https://placehold.co/400x250?text=Property';
   }
 
-  resolveImageUrl(url: string): string {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const base = this.config.apiUrl.replace(/\/$/, '');
-    return base + (url.startsWith('/') ? url : '/' + url);
+  onImgError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.src = 'https://placehold.co/400x250?text=Property';
+      img.onerror = null;
+    }
   }
 }

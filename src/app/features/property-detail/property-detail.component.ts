@@ -9,6 +9,7 @@ import { Property } from '../../core/models/property.model';
 import { ToastrService } from 'ngx-toastr';
 import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-loader.component';
 import { PropertyMapComponent } from '../../shared/property-map/property-map.component';
+import { resolvePropertyImageUrl } from '../../core/utils/image-url.util';
 
 /** User's active site visit for this property (PENDING_ASSIGNMENT or ASSIGNED). Used to show Reschedule instead of Book. */
 interface SiteVisitDto {
@@ -770,10 +771,7 @@ export class PropertyDetailComponent implements OnInit {
   }
 
   imageFullUrl(url: string): string {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const base = this.config.apiUrl.replace(/\/$/, '');
-    return base + (url.startsWith('/') ? url : '/' + url);
+    return resolvePropertyImageUrl(url, this.config.apiUrl);
   }
 
   openZoom(url: string) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -189,15 +189,16 @@ interface UserRow {
               <button type="button" class="modal-close" (click)="closeUsersModal()">×</button>
             </div>
             <div class="modal-body">
-              <div class="users-list" *ngIf="modalUsers.length">
+              <p *ngIf="loadingModalUsers" class="modal-status">Loading...</p>
+              <p *ngIf="modalError && !loadingModalUsers" class="modal-status modal-error">{{ modalError }}</p>
+              <div class="users-list" *ngIf="!loadingModalUsers && !modalError && modalUsers.length">
                 <div class="user-row" *ngFor="let u of modalUsers">
                   <div class="user-name">{{ u.fullName }}</div>
                   <div class="user-email">{{ u.email }}</div>
                   <div class="user-mobile" *ngIf="u.mobile">{{ u.mobile }}</div>
                 </div>
               </div>
-              <p *ngIf="!modalUsers.length && !loadingModalUsers">No users.</p>
-              <p *ngIf="loadingModalUsers">Loading...</p>
+              <p *ngIf="!loadingModalUsers && !modalError && !modalUsers.length" class="modal-status modal-empty">{{ modalEmptyMessage }}</p>
             </div>
           </div>
         </div>
@@ -573,6 +574,9 @@ interface UserRow {
     .user-name { font-weight: 600; margin-bottom: 0.25rem; }
     .user-email { font-size: 0.875rem; color: var(--text-muted); }
     .user-mobile { font-size: 0.875rem; color: var(--text-muted); }
+    .modal-status { margin: 0; padding: 1rem 0; text-align: center; color: var(--text-muted); }
+    .modal-status.modal-error { color: var(--danger); font-weight: 500; }
+    .modal-status.modal-empty { color: var(--text-muted); }
     @media (max-width: 768px) {
       .admin-page { padding: 1rem 0 2rem; }
       .admin-header h1 { font-size: 1.75rem; }
@@ -615,8 +619,10 @@ export class AdminComponent implements OnInit {
   usersModalTitle = '';
   modalUsers: UserRow[] = [];
   loadingModalUsers = false;
+  modalError = '';
+  modalEmptyMessage = '';
 
-  constructor(private api: ApiService, private toast: ToastrService, private cdr: ChangeDetectorRef) {}
+  constructor(private api: ApiService, private toast: ToastrService, private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
 
   ngOnInit() {
     this.api.get<Record<string, number>>('/admin/metrics').subscribe({
@@ -723,34 +729,64 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  private parseUsersResponse(res: unknown): UserRow[] {
+    if (Array.isArray(res)) return res as UserRow[];
+    if (res && typeof res === 'object' && Array.isArray((res as any).content)) return (res as any).content as UserRow[];
+    return [];
+  }
+
   openViewers(propertyId: number) {
     this.usersModalTitle = 'Users who viewed this property';
+    this.modalEmptyMessage = '0 views';
     this.modalUsers = [];
+    this.modalError = '';
     this.loadingModalUsers = true;
-    this.api.get<UserRow[]>('/admin/properties/' + propertyId + '/viewers').subscribe({
-      next: (list) => {
-        this.modalUsers = list;
-        this.loadingModalUsers = false;
+    this.cdr.detectChanges();
+    this.api.get<UserRow[] | { content: UserRow[] }>('/admin/properties/' + propertyId + '/viewers').subscribe({
+      next: (res) => {
+        this.ngZone.run(() => {
+          this.modalUsers = this.parseUsersResponse(res);
+          this.loadingModalUsers = false;
+          this.modalError = '';
+          this.cdr.detectChanges();
+        });
       },
       error: () => {
-        this.loadingModalUsers = false;
-        this.toast.error('Failed to load viewers');
+        this.ngZone.run(() => {
+          this.loadingModalUsers = false;
+          this.modalError = 'Error loading viewers. Please try again.';
+          this.modalUsers = [];
+          this.toast.error('Failed to load viewers');
+          this.cdr.detectChanges();
+        });
       },
     });
   }
 
   openLikers(propertyId: number) {
     this.usersModalTitle = 'Users who liked this property';
+    this.modalEmptyMessage = '0 likes';
     this.modalUsers = [];
+    this.modalError = '';
     this.loadingModalUsers = true;
-    this.api.get<UserRow[]>('/admin/properties/' + propertyId + '/likers').subscribe({
-      next: (list) => {
-        this.modalUsers = list;
-        this.loadingModalUsers = false;
+    this.cdr.detectChanges();
+    this.api.get<UserRow[] | { content: UserRow[] }>('/admin/properties/' + propertyId + '/likers').subscribe({
+      next: (res) => {
+        this.ngZone.run(() => {
+          this.modalUsers = this.parseUsersResponse(res);
+          this.loadingModalUsers = false;
+          this.modalError = '';
+          this.cdr.detectChanges();
+        });
       },
       error: () => {
-        this.loadingModalUsers = false;
-        this.toast.error('Failed to load likers');
+        this.ngZone.run(() => {
+          this.loadingModalUsers = false;
+          this.modalError = 'Error loading likes. Please try again.';
+          this.modalUsers = [];
+          this.toast.error('Failed to load likers');
+          this.cdr.detectChanges();
+        });
       },
     });
   }
@@ -758,6 +794,8 @@ export class AdminComponent implements OnInit {
   closeUsersModal() {
     this.usersModalTitle = '';
     this.modalUsers = [];
+    this.modalError = '';
+    this.modalEmptyMessage = '';
   }
 
   loadAllVisits() {

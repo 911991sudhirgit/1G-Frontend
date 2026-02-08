@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../core/services/api.service';
 import { ConfigService } from '../../core/services/config.service';
 import { ToastrService } from 'ngx-toastr';
+import { resolvePropertyImageUrl } from '../../core/utils/image-url.util';
 
 interface PropertySummary {
   id: number;
@@ -241,6 +242,8 @@ export class AgentVisitDetailComponent implements OnInit {
     private api: ApiService,
     private config: ConfigService,
     private toast: ToastrService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit() {
@@ -253,10 +256,7 @@ export class AgentVisitDetailComponent implements OnInit {
   }
 
   imageUrl(url: string | undefined): string {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const base = this.config.apiUrl.replace(/\/$/, '');
-    return url.startsWith('/') ? base + url : base + '/' + url;
+    return resolvePropertyImageUrl(url, this.config.apiUrl);
   }
 
   loadDetail(id: number) {
@@ -264,12 +264,18 @@ export class AgentVisitDetailComponent implements OnInit {
     this.error = '';
     this.api.get<SiteVisitDetail>(`/agent/sitevisits/${id}`).subscribe({
       next: (d) => {
-        this.detail = d;
-        this.loading = false;
+        this.ngZone.run(() => {
+          this.detail = d;
+          this.loading = false;
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => {
-        this.error = err.error?.message || 'Failed to load visit';
-        this.loading = false;
+        this.ngZone.run(() => {
+          this.error = err.error?.message || 'Failed to load visit';
+          this.loading = false;
+          this.cdr.detectChanges();
+        });
       },
     });
   }
@@ -277,16 +283,23 @@ export class AgentVisitDetailComponent implements OnInit {
   completeVisit() {
     if (!this.detail || !this.otp?.trim()) return;
     this.completing = true;
+    this.cdr.detectChanges();
     this.api.post<unknown>(`/agent/sitevisits/${this.detail.id}/complete?otp=${encodeURIComponent(this.otp.trim())}`, {}).subscribe({
       next: () => {
-        this.toast.success('Visit marked as done.');
-        this.detail!.status = 'COMPLETED';
-        this.otp = '';
-        this.completing = false;
+        this.ngZone.run(() => {
+          this.toast.success('Visit marked as done.');
+          this.detail!.status = 'COMPLETED';
+          this.otp = '';
+          this.completing = false;
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => {
-        this.toast.error(err.error?.message || 'Failed to complete visit');
-        this.completing = false;
+        this.ngZone.run(() => {
+          this.toast.error(err.error?.message || 'Failed to complete visit');
+          this.completing = false;
+          this.cdr.detectChanges();
+        });
       },
     });
   }
@@ -294,17 +307,24 @@ export class AgentVisitDetailComponent implements OnInit {
   addComment() {
     if (!this.detail || !this.newComment?.trim()) return;
     this.savingComment = true;
+    this.cdr.detectChanges();
     this.api.post<SiteVisitComment>(`/agent/sitevisits/${this.detail.id}/comments`, { commentText: this.newComment.trim() }).subscribe({
       next: (c) => {
-        if (!this.detail!.comments) this.detail!.comments = [];
-        this.detail!.comments.push(c);
-        this.newComment = '';
-        this.toast.success('Comment added.');
-        this.savingComment = false;
+        this.ngZone.run(() => {
+          if (!this.detail!.comments) this.detail!.comments = [];
+          this.detail!.comments.push(c);
+          this.newComment = '';
+          this.toast.success('Comment added.');
+          this.savingComment = false;
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => {
-        this.toast.error(err.error?.message || 'Failed to add comment');
-        this.savingComment = false;
+        this.ngZone.run(() => {
+          this.toast.error(err.error?.message || 'Failed to add comment');
+          this.savingComment = false;
+          this.cdr.detectChanges();
+        });
       },
     });
   }
