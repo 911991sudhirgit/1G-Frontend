@@ -12,6 +12,7 @@ export const routes: Routes = [
   { path: 'verify-email', loadComponent: () => import('./features/auth/verify-email/verify-email.component').then(m => m.VerifyEmailComponent) },
   { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent), canActivate: [authGuard] },
   { path: 'my-properties', loadComponent: () => import('./features/my-properties/my-properties.component').then(m => m.MyPropertiesComponent), canActivate: [authGuard] },
+  { path: 'property', redirectTo: 'search', pathMatch: 'full' },
   { path: 'property/new', loadComponent: () => import('./features/property-form/property-form.component').then(m => m.PropertyFormComponent), canActivate: [authGuard] },
   { path: 'property/:id/edit', loadComponent: () => import('./features/property-form/property-form.component').then(m => m.PropertyFormComponent), canActivate: [authGuard] },
   { path: 'property/:id', loadComponent: () => import('./features/property-detail/property-detail.component').then(m => m.PropertyDetailComponent) },

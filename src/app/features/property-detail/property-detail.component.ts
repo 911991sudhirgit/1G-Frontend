@@ -22,6 +22,7 @@ interface SiteVisitDto {
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, SkeletonLoaderComponent, PropertyMapComponent],
   template: `
+    <div class="property-detail-wrapper">
     <div class="property-detail-page" *ngIf="property && !loading">
       <div class="container">
         <div class="breadcrumb">
@@ -242,6 +243,7 @@ interface SiteVisitDto {
         <a routerLink="/search" class="btn btn-primary">Browse Properties</a>
       </div>
     </div>
+    </div>
 
     <div class="modal-overlay" *ngIf="showBookForm" (click)="showBookForm = false">
       <div class="modal card" (click)="$event.stopPropagation()">
@@ -286,6 +288,8 @@ interface SiteVisitDto {
     </div>
   `,
   styles: [`
+    :host { display: block; min-height: 60vh; }
+    .property-detail-wrapper { min-height: 60vh; }
     .property-detail-page { padding: 2rem 0 4rem; }
     .breadcrumb {
       margin-bottom: 1.5rem;
@@ -777,29 +781,32 @@ export class PropertyDetailComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadError = '';
-      this.api.get<Property>('/properties/' + id, { includeAnalytics: true }).subscribe({
-        next: (p) => {
-          this.property = p;
-          this.loading = false;
-          this.loadError = '';
-          if (this.auth.user()) {
-            this.api.get<{ inWatchlist: boolean }>('/properties/' + id + '/watchlist').subscribe({
-              next: (r) => (this.inWatchlist = r.inWatchlist),
-              error: () => {},
-            });
-            this.loadMyVisitForProperty();
-          }
-        },
-        error: (err) => {
-          this.loading = false;
-          this.loadError = err.status === 401
-            ? 'Please log in again to view this property.'
-            : (err.error?.message || 'Failed to load property.');
-        },
-      });
+    if (!id || id === 'new') {
+      this.loading = false;
+      this.loadError = 'Invalid property URL. Use a valid property link from search or home.';
+      return;
     }
+    this.loadError = '';
+    this.api.get<Property>('/properties/' + id, { includeAnalytics: true }).subscribe({
+      next: (p) => {
+        this.property = p;
+        this.loading = false;
+        this.loadError = '';
+        if (this.auth.user()) {
+          this.api.get<{ inWatchlist: boolean }>('/properties/' + id + '/watchlist').subscribe({
+            next: (r) => (this.inWatchlist = r.inWatchlist),
+            error: () => {},
+          });
+          this.loadMyVisitForProperty();
+        }
+      },
+      error: (err) => {
+        this.loading = false;
+        this.loadError = err.status === 401
+          ? 'Please log in again to view this property.'
+          : (err.error?.message || 'Failed to load property.');
+      },
+    });
   }
 
   /** Load current user's active site visit for this property so we show Reschedule instead of Book when one exists. */
