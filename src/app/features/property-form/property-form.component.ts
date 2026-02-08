@@ -463,7 +463,10 @@ export class PropertyFormComponent implements OnInit {
       error: (e) => {
         this.uploading = false;
         this.currentImageIndex = null;
-        this.toast.error(e.error?.message || 'Upload failed');
+        const msg = e.status === 401
+          ? 'Session expired or not logged in. Please log in again and try uploading.'
+          : (e.error?.message || 'Upload failed');
+        this.toast.error(msg);
       },
     });
   }
