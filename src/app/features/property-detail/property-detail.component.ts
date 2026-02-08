@@ -237,8 +237,8 @@ interface SiteVisitDto {
     <div class="container" *ngIf="!property && !loading">
       <div class="not-found">
         <div class="not-found-icon">🏠</div>
-        <h2>Property Not Found</h2>
-        <p>The property you're looking for doesn't exist or has been removed.</p>
+        <h2>{{ loadError ? 'Unable to load property' : 'Property Not Found' }}</h2>
+        <p>{{ loadError || "The property you're looking for doesn't exist or has been removed." }}</p>
         <a routerLink="/search" class="btn btn-primary">Browse Properties</a>
       </div>
     </div>
@@ -728,6 +728,7 @@ interface SiteVisitDto {
 export class PropertyDetailComponent implements OnInit {
   property: Property | null = null;
   loading = true;
+  loadError = '';
   currentIndex = 0;
   inWatchlist = false;
   showBookForm = false;
@@ -777,10 +778,12 @@ export class PropertyDetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      this.loadError = '';
       this.api.get<Property>('/properties/' + id, { includeAnalytics: true }).subscribe({
         next: (p) => {
           this.property = p;
           this.loading = false;
+          this.loadError = '';
           if (this.auth.user()) {
             this.api.get<{ inWatchlist: boolean }>('/properties/' + id + '/watchlist').subscribe({
               next: (r) => (this.inWatchlist = r.inWatchlist),
@@ -789,7 +792,12 @@ export class PropertyDetailComponent implements OnInit {
             this.loadMyVisitForProperty();
           }
         },
-        error: () => (this.loading = false),
+        error: (err) => {
+          this.loading = false;
+          this.loadError = err.status === 401
+            ? 'Please log in again to view this property.'
+            : (err.error?.message || 'Failed to load property.');
+        },
       });
     }
   }
