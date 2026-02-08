@@ -1,14 +1,31 @@
 /**
+ * Extract Google Drive file ID from share/view links.
+ * Supports: .../file/d/FILE_ID/view... and ...?id=FILE_ID (open link)
+ */
+function extractGoogleDriveFileId(url: string): string | null {
+  if (!url || typeof url !== 'string') return null;
+  const u = url.trim();
+  if (!u) return null;
+  const fileMatch = u.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (fileMatch) return fileMatch[1];
+  const openMatch = u.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if (openMatch) return openMatch[1];
+  return null;
+}
+
+/**
  * Convert Google Drive file view/share link to a direct image URL so <img> can load it.
- * View links like https://drive.google.com/file/d/FILE_ID/view?usp=drive_link
- * must be converted to https://drive.google.com/uc?export=view&id=FILE_ID
+ * As of 2024, uc?export=view often returns 403. The thumbnail API works for public files:
+ * https://drive.google.com/thumbnail?id=FILE_ID&sz=w1200
  */
 export function toDirectImageUrl(url: string | undefined): string {
   if (!url || typeof url !== 'string') return '';
   const u = url.trim();
   if (!u) return '';
-  const m = u.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  const fileId = extractGoogleDriveFileId(u);
+  if (fileId) {
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
+  }
   return u;
 }
 

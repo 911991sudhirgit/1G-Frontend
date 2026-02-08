@@ -166,7 +166,7 @@ import { resolvePropertyImageUrl } from '../../core/utils/image-url.util';
                 </div>
                 <button type="button" class="btn btn-primary add-url-btn" (click)="addImageByUrl()">Add URL</button>
               </div>
-              <small class="images-hint">Paste an image URL above and click Add URL. Use a direct link to an image (e.g. ending in .jpg, .png). At least one image is recommended.</small>
+              <small class="images-hint">Paste an image URL above and click Add URL. For Google Drive links, set the file sharing to &quot;Anyone with the link&quot; so the image can display.</small>
               <div class="image-preview-row" *ngFor="let url of imageUrls; let i = index">
                 <img *ngIf="url" [src]="imagePreviewUrl(url)" alt="Preview" class="image-preview" (error)="onImageError($event)" />
                 <span *ngIf="!url" class="preview-placeholder">No image</span>
