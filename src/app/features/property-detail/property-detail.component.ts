@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -288,9 +288,9 @@ interface SiteVisitDto {
     </div>
   `,
   styles: [`
-    :host { display: block; min-height: 60vh; }
-    .property-detail-wrapper { min-height: 60vh; }
-    .property-detail-page { padding: 2rem 0 4rem; }
+    :host { display: block; min-height: 60vh; width: 100%; box-sizing: border-box; }
+    .property-detail-wrapper { min-height: 60vh; width: 100%; max-width: 100%; overflow-x: hidden; box-sizing: border-box; }
+    .property-detail-page { padding: 2rem 0 4rem; width: 100%; box-sizing: border-box; }
     .breadcrumb {
       margin-bottom: 1.5rem;
       color: var(--text-muted);
@@ -441,6 +441,11 @@ interface SiteVisitDto {
       display: grid;
       grid-template-columns: 1fr 400px;
       gap: 2rem;
+      min-width: 0;
+    }
+    .property-content .main-content,
+    .property-content .sidebar {
+      min-width: 0;
     }
     .info-section, .description-section, .amenities-section, .location-section, .analytics-section {
       padding: 2.5rem;
@@ -685,6 +690,10 @@ interface SiteVisitDto {
         flex-direction: row;
       }
     }
+    @media (max-width: 768px) {
+      .property-header { gap: 1rem; }
+      .property-detail-page .container { padding-left: 1rem; padding-right: 1rem; }
+    }
     .zoomable {
       cursor: zoom-in;
     }
@@ -750,7 +759,9 @@ export class PropertyDetailComponent implements OnInit {
     private api: ApiService,
     private config: ConfigService,
     public auth: AuthService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private cdr: ChangeDetectorRef,
+    private ngZone: NgZone
   ) {}
 
   @HostListener('document:keydown.escape')
@@ -787,24 +798,35 @@ export class PropertyDetailComponent implements OnInit {
       return;
     }
     this.loadError = '';
-    this.api.get<Property>('/properties/' + id, { includeAnalytics: true }).subscribe({
-      next: (p) => {
-        this.property = p;
-        this.loading = false;
-        this.loadError = '';
-        if (this.auth.user()) {
-          this.api.get<{ inWatchlist: boolean }>('/properties/' + id + '/watchlist').subscribe({
-            next: (r) => (this.inWatchlist = r.inWatchlist),
-            error: () => {},
-          });
-          this.loadMyVisitForProperty();
-        }
+    this.api.get<Property & { data?: Property }>('/properties/' + id, { includeAnalytics: true }).subscribe({
+      next: (res) => {
+        this.ngZone.run(() => {
+          const raw = res && (res as any).data != null ? (res as any).data : res;
+          const p = raw && typeof raw === 'object' && (raw.id != null || raw.title != null) ? raw : null;
+          this.property = p as Property | null;
+          this.loading = false;
+          this.loadError = this.property ? '' : 'Invalid response from server.';
+          if (this.auth.user() && this.property) {
+            this.api.get<{ inWatchlist: boolean }>('/properties/' + id + '/watchlist').subscribe({
+              next: (r) => {
+                this.inWatchlist = r.inWatchlist;
+                this.cdr.detectChanges();
+              },
+              error: () => {},
+            });
+            this.loadMyVisitForProperty();
+          }
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => {
-        this.loading = false;
-        this.loadError = err.status === 401
-          ? 'Please log in again to view this property.'
-          : (err.error?.message || 'Failed to load property.');
+        this.ngZone.run(() => {
+          this.loading = false;
+          this.loadError = err.status === 401
+            ? 'Please log in again to view this property.'
+            : (err.error?.message || 'Failed to load property.');
+          this.cdr.detectChanges();
+        });
       },
     });
   }

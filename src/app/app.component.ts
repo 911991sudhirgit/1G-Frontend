@@ -17,6 +17,8 @@ import { FooterComponent } from './core/components/footer/footer.component';
   styles: [`
     .main-content {
       min-height: calc(100vh - 140px);
+      padding-top: 1rem;
+      box-sizing: border-box;
     }
   `],
 })
