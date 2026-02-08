@@ -158,6 +158,14 @@ import { PropertyMapComponent } from '../../shared/property-map/property-map.com
           <div class="form-section">
             <h3>Property Images</h3>
             <div class="images-section">
+              <div class="add-url-row">
+                <div class="form-group add-url-input">
+                  <label>Image URL</label>
+                  <input type="url" [(ngModel)]="newImageUrl" [ngModelOptions]="{standalone: true}" placeholder="https://example.com/image.jpg" (keydown.enter)="addImageByUrl(); $event.preventDefault()" />
+                </div>
+                <button type="button" class="btn btn-primary add-url-btn" (click)="addImageByUrl()">Add URL</button>
+              </div>
+              <small class="images-hint">Paste an image URL above and click Add URL, or upload a file below (when available). At least one image is recommended.</small>
               <input type="file" #fileInput accept="image/jpeg,image/png,image/webp,image/gif" (change)="onFileSelected($event)" class="file-input hidden" />
               <div class="image-preview-row" *ngFor="let url of imageUrls; let i = index">
                 <img *ngIf="url" [src]="imagePreviewUrl(url)" alt="Preview" class="image-preview" />
@@ -167,8 +175,7 @@ import { PropertyMapComponent } from '../../shared/property-map/property-map.com
                   <button type="button" class="btn btn-outline btn-sm" (click)="removeImage(i)">Remove</button>
                 </div>
               </div>
-              <button type="button" class="btn btn-outline" (click)="addImageSlot()">+ Add another image</button>
-              <small>Upload images (JPEG, PNG, WebP, GIF). They will be resized and a thumbnail created. At least one image is recommended.</small>
+              <button type="button" class="btn btn-outline" (click)="addImageSlot()">+ Add another image slot</button>
             </div>
           </div>
 
@@ -268,6 +275,23 @@ import { PropertyMapComponent } from '../../shared/property-map/property-map.com
       flex-direction: column;
       gap: 0.75rem;
     }
+    .add-url-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .add-url-row .add-url-input {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 0;
+    }
+    .add-url-row .add-url-btn {
+      flex-shrink: 0;
+    }
+    .images-hint {
+      margin-bottom: 0.25rem;
+    }
     .image-input {
       display: flex;
       gap: 0.5rem;
@@ -336,6 +360,7 @@ export class PropertyFormComponent implements OnInit {
   propertyId: number | null = null;
   submitting = false;
   imageUrls: string[] = [];
+  newImageUrl = '';
   stateNames = getStateNames();
   citiesForState: string[] = [];
 
@@ -469,6 +494,17 @@ export class PropertyFormComponent implements OnInit {
         this.toast.error(msg);
       },
     });
+  }
+
+  addImageByUrl() {
+    const url = this.newImageUrl?.trim();
+    if (!url) {
+      this.toast.warning('Enter an image URL');
+      return;
+    }
+    this.imageUrls.push(url);
+    this.newImageUrl = '';
+    this.toast.success('Image URL added');
   }
 
   addImageSlot() {
