@@ -13,7 +13,7 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
   imports: [CommonModule, RouterLink, FormsModule, PropertyCardComponent, SkeletonLoaderComponent],
   template: `
     <div class="loancalcicon" id="loancalcid">
-	<img src="assets/images/calcicon.jpg">
+	<img src="assets/assets/images/calcicon.jpg">
 	
   </div>
   <div class="popup" id="popupid">
@@ -32,6 +32,8 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
 				  <input type="text" name="finalamt" id="finalamtid" size="16" maxlength="12" disabled/><br />
 		  </div>
 	  </div>
+
+
 
     <section class="hero">
       <div class="hero-bg"></div>
@@ -52,6 +54,147 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
         </div>
       </div>
     </section>
+
+     <div class="row nomargin">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/poplogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">POP service</h3>
+		<p> Modern POP (Plaster of Paris) designs blend architectural elegance with functional lighting to transform any ceiling into a masterpiece.
+</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/paintlogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Paint service</h3 >
+		<p> The Professional Touch<br/>
+Transforming spaces with a stroke of perfection. Quality finishes that stand the test of time.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/lightlogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Electrical service</h3>
+		<p> Professional & warm
+<br/>
+We craft lighting solutions that transform ordinary spaces into extraordinary experiences.
+From concept to installation, Lighting service brings brilliance to every corner.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/constructionlogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Construction & ReConstruction service</h3 >
+		<p> Strong & reassuring
+<br/>
+Reconstruction service restores what matters most — your space, your comfort, your peace of mind.
+From damage to done, we rebuild with precision, care, and craftsmanship you can trust.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/doorlogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Door and Framing</h3 >
+		<p> Bold & confident
+<br/>
+We deliver precision-built doors and framing solutions that define the character of every space.
+Door and Framing service — where strength, style, and craftsmanship meet at every threshold.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+  
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/tileslogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Tiles service</h3 >
+		<p> Elegant & aspirational
+<br/>
+Tiles service brings together exquisite design and superior quality to transform every surface into a statement.
+From floors to walls, we lay the foundation of spaces that inspire and endure.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+   </div>
+  <div class="row nomargin"> 
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/hardwarelogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Hardware service</h3 >
+		<p>  Strong & reliable
+<br/>
+Hardware service supplies and installs premium fittings, fixtures, and accessories that hold every space together.
+From the smallest hinge to the grandest finish, we deliver quality you can see and feel.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/fabrication.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Fabrication service</h3 >
+		<p>  Strong & industrial
+<br/>
+Fabrication service delivers precision-engineered metal and structural solutions built to the highest standards of quality and durability.
+From concept to completion, we fabricate with skill, accuracy, and craftsmanship that stands the test of time.</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+	<div class="servicecards text-center">
+		<img src="assets/images/furniturelogo.png" class="img-fluid logoservice">
+		<h3 style="font-weight:bold;">Furniture service</h3 >
+		<p> Furniture service creates beautifully crafted pieces that bring warmth, character, and purpose to every living space.
+From custom designs to timeless classics, we build furniture that tells your story for generations to come.
+</p>
+		<input type ="button" value="Get Quote" onClick="showpopup()">
+	</div>
+  </div>
+
+  </div>
+
+  
+  <div class="popup" id="popupid">
+	  <div class="closeicon popupody" id="closeiconid">
+		<span class="">x</span>
+		  </div>
+		  <div class="formdata">
+				 <form action="/action_page.php">
+						<div class="mb-3 mt-3">
+						<label for="namename" class="form-label">Your Name:</label>
+						<input type="name" size="12" class="form-control" id="name" placeholder="Enter name" name="namename">
+					  </div>
+					 
+					  <div class="mb-3 mt-3">
+						<label for="email"  class="form-label">Email:</label>
+						<input type="email" size="12" class="form-control" id="email" placeholder="Enter email" name="email">
+					  </div>
+					  
+					  <div class="mb-3 mt-3">
+						<label for="number"  class="form-label">Your Number:</label>
+						<input type="number" size="12" class="form-control" id="number" placeholder="Enter number" name="number">
+					  </div>
+					  
+					  <label for="comment"class="form-label">Comments:</label>
+						<textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+					 
+					  <!-- <a href="https://wa.me/8585838365" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+						  <i class="fa fa-whatsapp"></i>
+						  <span>Enquiry on WhatsApp</span>
+						</a> -->
+						<br>
+						<button onclick="send_handle()" class="btn btn-success">Enquiry on WhatsApp</button>
+					</form>
+				
+		  </div>
+	  </div>
+	  
+	  
+ 
 
     <section class="stats-section">
       <div class="container">
@@ -426,6 +569,76 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
 
 .visibleok{
 	display:block!important;
+}
+
+
+.loancalcicon{
+	    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    display: flex;
+	cursor:pointer;
+}
+
+.popup{
+	width : 50%;
+	height : 100%;
+	background-color: rgba(73, 73, 77, 0.88);
+	z-index:99;
+	position: fixed;
+	display:none;
+	transform: translateX(50%);
+	top: 0;
+}
+.closeicon{
+	width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    display: flex;
+	cursor:pointer;
+	z-index:999;
+	color: #000;
+	font-weight: bold;
+	font-size:25pt;
+}
+
+.visibleok{
+	display:block!important;
+}
+
+.hidepopup{
+	display:none;	
+}
+
+.formdata{
+	text-align: center;
+	transform: translateY(50%);
+}
+.logoservice{
+	width: 50px;
+	height: 50px;
+}
+
+.formdata{
+	width: 50%;
+    transform: translate(50%, 30%);
+}
+
+.form-label{
+	color: #ffff;
+}
+.servicecards{
+	margin: 15px;
+    background-color: cadetblue;
+	padding:10px;
+}
+
+.servicename{
+	font-weight: bold !important;
 }
 
 .hidepopup{
