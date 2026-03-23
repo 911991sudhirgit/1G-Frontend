@@ -8,11 +8,11 @@ $(document).ready(function(){
 		
 		
 		$( "#loancalcid" ).on( "click", function() {
-				$( "#popup1id" ).show();
+				$( "#popupid1" ).show();
 			});
 			
 		$( "#closeiconid" ).on( "click", function() {
-				$( "#popup1id" ).hide();
+				$( "#popupid1" ).hide();
 			});
 			
 			
