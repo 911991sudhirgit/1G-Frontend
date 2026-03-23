@@ -12,6 +12,27 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, PropertyCardComponent, SkeletonLoaderComponent],
   template: `
+    <div class="loancalcicon" id="loancalcid">
+	<img src="assets/images/calcicon.jpg">
+	
+  </div>
+  <div class="popup" id="popupid">
+	  <div class="closeicon popupody" id="closeiconid">
+		<span class="">x</span>
+		  </div>
+		  <div class="formdata">
+				  <label>Enter Amount:</label><br />
+				  <input type="text" id="initamtid" name="name" size="12" maxlength="32" value="300000" /><br /><br />
+				  <label>Rate of Intrest</label><br />
+				  <input type="text" id="roiid" name="roi" size="4" value="12" />%<br /><br />
+					<label>Enter Tenure in Years</label><br />
+				  <input type="text" id="tenureid" name="tenure" size="4" maxlength="12" value="3"/><br /><br />
+				  <input type="submit"  value="Calculate!" onClick="calcval()"/><br /><br />
+				  <label>Final Amount will be</label><br />
+				  <input type="text" name="finalamt" id="finalamtid" size="16" maxlength="12" disabled/><br />
+		  </div>
+	  </div>
+
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="container hero-content">
@@ -371,6 +392,50 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
       font-size: 2.25rem;
       font-weight: 800;
     }
+      .loancalcicon{
+	    width: 50px;
+    height: 50px;
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    display: flex;
+	cursor:pointer;
+}
+
+.popup1{
+	width :50%;
+	height : 90%;
+	background-color: rgba(73, 73, 77, 0.78);
+	z-index:99;
+	position: absolute;
+	display:none;
+}
+.closeicon1{
+	width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    display: flex;
+	cursor:pointer;
+	z-index:999;
+	color: #000;
+	font-weight: bold;
+	font-size:25pt;
+}
+
+.visibleok{
+	display:block!important;
+}
+
+.hidepopup{
+	display:none;	
+}
+
+.formdata{
+	text-align: center;
+	transform: translateY(50%);
+}
     .cta-card p {
       color: var(--text-muted);
       margin-bottom: 2.5rem;
@@ -399,6 +464,7 @@ export class HomeComponent implements OnInit {
   constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    
     this.api.get<Property[]>('/properties/public/featured').subscribe({
       next: (data) => {
         this.featured = Array.isArray(data) ? data : [];
