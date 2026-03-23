@@ -635,6 +635,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 	margin: 15px;
     background-color: cadetblue;
 	padding:10px;
+  text-align: center;
 }
 
 .servicename{
