@@ -536,14 +536,15 @@ From custom designs to timeless classics, we build furniture that tells your sto
       font-weight: 800;
     }
       .loancalcicon{
-	    width: 50px;
-    height: 50px;
-    position: absolute;
-    left: 0px;
-    top: 50%;
-    display: flex;
-	cursor:pointer;
-}
+	      width: 50px;
+        height: 50px;
+        position: fixed;
+        left: 0px;
+        top: 50%;
+        display: flex;
+      cursor:pointer;
+      z-index:99;
+    }
 
 .popup1{
 	width :50%;
@@ -571,16 +572,6 @@ From custom designs to timeless classics, we build furniture that tells your sto
 	display:block!important;
 }
 
-
-.loancalcicon{
-	    width: 50px;
-    height: 50px;
-    position: absolute;
-    left: 0px;
-    top: 50%;
-    display: flex;
-	cursor:pointer;
-}
 
 .popup{
 	width : 50%;
