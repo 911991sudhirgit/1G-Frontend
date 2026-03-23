@@ -25,11 +25,13 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets", { "glob": "config.json", "input": "src/assets", "output": "/" }],
             "styles": [
+              "../node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/leaflet/dist/leaflet.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
             ],
             "scripts": [ 
+              // "https://code.jquery.com/jquery-3.6.0.min.js",
               "node_modules/jquery/dist/jquery.min.js",
               "src/scripts/app.js"]
           },

@@ -653,10 +653,17 @@ From custom designs to timeless classics, we build furniture that tells your sto
       color: var(--text-muted);
     }
     @media (max-width: 768px) {
+
       .hero h1 { font-size: 2.5rem; }
       .hero-subtitle { font-size: 1.125rem; }
       .search-box { flex-direction: column; }
       .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+
+      .popup{
+        width :100%;
+        height : 100%;
+        transform: translateX(0%);
+      }	
     }
   `],
 })
@@ -665,6 +672,7 @@ export class HomeComponent implements OnInit {
   loading = true;
   searchType = 'buy';
   searchQuery = '';
+  
 
   constructor(private api: ApiService, private router: Router, private cdr: ChangeDetectorRef) {}
 

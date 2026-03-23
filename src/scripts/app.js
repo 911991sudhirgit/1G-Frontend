@@ -18,10 +18,6 @@ $(document).ready(function(){
 			
 			console.log("in app .js");
 			
-			$( "#closeiconid" ).on( "click", function() {
-				$( "#popupid1" ).hide();
-			});
-		
 });
 function calcval1(){
 			console.log("calcval was clicked.");
