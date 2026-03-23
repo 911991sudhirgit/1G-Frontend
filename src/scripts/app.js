@@ -19,7 +19,7 @@ $(document).ready(function(){
 			console.log("in app .js");
 			
 			$( "#closeiconid" ).on( "click", function() {
-				$( "#popupid" ).hide();
+				$( "#popupid1" ).hide();
 			});
 		
 });
@@ -39,7 +39,7 @@ function calcval1(){
 	
 	function showpopup(){
 	console.log("popup shown");
-	$( "#popupid" ).show();
+	$( "#popupid1" ).show();
 }
 
 function send_handle() {
