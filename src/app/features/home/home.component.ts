@@ -13,10 +13,10 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
   imports: [CommonModule, RouterLink, FormsModule, PropertyCardComponent, SkeletonLoaderComponent],
   template: `
     <div class="loancalcicon" id="loancalcid">
-	<img src="assets/assets/images/calcicon.jpg">
+	<img src="assets/images/calcicon.jpg">
 	
   </div>
-  <div class="popup" id="popupid">
+  <div class="popup" id="popupid1">
 	  <div class="closeicon popupody" id="closeiconid">
 		<span class="">x</span>
 		  </div>
