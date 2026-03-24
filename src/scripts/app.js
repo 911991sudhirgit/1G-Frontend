@@ -14,6 +14,11 @@ $(document).ready(function(){
 		$( "#closeiconid" ).on( "click", function() {
 				$( "#popupid1" ).hide();
 			});
+
+			
+		$( "#closeiconid1" ).on( "click", function() {
+				$( "#popupid1" ).hide();
+			});
 			
 			
 			console.log("in app .js");
@@ -35,7 +40,7 @@ function calcval1(){
 	
 	function showpopup(){
 	console.log("popup shown");
-	$( "#popupid1" ).show();
+	$( "#popupid" ).show();
 }
 
 function send_handle() {

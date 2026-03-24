@@ -130,7 +130,7 @@ From floors to walls, we lay the foundation of spaces that inspire and endure.</
 <br/>
 Hardware service supplies and installs premium fittings, fixtures, and accessories that hold every space together.
 From the smallest hinge to the grandest finish, we deliver quality you can see and feel.</p>
-		<input type ="button" value="Get Quote" onClick="popupid1()">
+		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
@@ -159,7 +159,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 
   
   <div class="popup" id="popupid">
-	  <div class="closeicon popupody" id="closeiconid">
+	  <div class="closeicon popupody" id="closeiconid1">
 		<span class="">x</span>
 		  </div>
 		  <div class="formdata">
