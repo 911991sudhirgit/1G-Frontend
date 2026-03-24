@@ -25,11 +25,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   </slide>
 </carousel>
 <br/>
-<div>
-  <button type="button" class="btn btn-info"
-    (click)="switchIndicator()">Enable/Disable Indicator
-  </button>
-</div>
+
 
     <div class="loancalcicon" id="loancalcid" onClick="showpopup1()">
 	<img src="assets/images/calcicon.jpg">
