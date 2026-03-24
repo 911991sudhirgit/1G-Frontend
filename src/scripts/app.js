@@ -24,7 +24,7 @@ $(document).ready(function(){
 			console.log("in app .js");
 			
 });
-function calcval1(){
+function calcval(){
 			console.log("calcval was clicked.");
 			var amt = parseFloat($("#initamtid").val());
 			var roiid = parseFloat($("#roiid").val());
@@ -41,6 +41,19 @@ function calcval1(){
 	function showpopup(){
 	console.log("popup shown");
 	$( "#popupid" ).show();
+}
+function hidepopup(){
+	console.log("popup shown");
+	$( "#popupid" ).hide();
+}
+
+function showpopup1(){
+	console.log("popup shown");
+	$( "#popupid1" ).show();
+}
+function hidepopup1(){
+	console.log("popup shown");
+	$( "#popupid1" ).hide();
 }
 
 function send_handle() {

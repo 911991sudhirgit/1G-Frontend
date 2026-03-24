@@ -12,11 +12,11 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule, PropertyCardComponent, SkeletonLoaderComponent],
   template: `
-    <div class="loancalcicon" id="loancalcid">
+    <div class="loancalcicon" id="loancalcid" onClick="showpopup1()">
 	<img src="assets/images/calcicon.jpg">
 	
   </div>
-  <div class="popup" id="popupid1">
+  <div class="popup" id="popupid1" onClick="hidepopup1()">
 	  <div class="closeicon popupody" id="closeiconid">
 		<span class="">x</span>
 		  </div>
@@ -159,7 +159,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 
   
   <div class="popup" id="popupid">
-	  <div class="closeicon popupody" id="closeiconid1">
+	  <div class="closeicon popupody" id="closeiconid1" onClick="hidepopup()">
 		<span class="">x</span>
 		  </div>
 		  <div class="formdata">
@@ -608,16 +608,14 @@ From custom designs to timeless classics, we build furniture that tells your sto
 .formdata{
 	text-align: center;
 	transform: translateY(50%);
+  color: #ffebcd;
 }
 .logoservice{
 	width: 50px;
 	height: 50px;
 }
 
-.formdata{
-	width: 50%;
-    transform: translate(50%, 30%);
-}
+
 
 .form-label{
 	color: #ffff;
