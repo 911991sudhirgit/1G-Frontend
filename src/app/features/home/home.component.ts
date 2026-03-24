@@ -16,9 +16,9 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
 	<img src="assets/images/calcicon.jpg">
 	
   </div>
-  <div class="popup" id="popupid1" onClick="hidepopup1()">
+  <div class="popup" id="popupid1" >
 	  <div class="closeicon popupody" id="closeiconid">
-		<span class="">x</span>
+		<span class="" onClick="hidepopup1()">x</span>
 		  </div>
 		  <div class="formdata">
 				  <label>Enter Amount:</label><br />
@@ -165,28 +165,31 @@ From custom designs to timeless classics, we build furniture that tells your sto
 		  <div class="formdata">
 				 <form action="/action_page.php">
 						<div class="mb-3 mt-3">
-						<label for="namename" class="form-label">Your Name:</label>
+						<label for="namename" class="form-label">Your Name: </label>
 						<input type="name" size="12" class="form-control" id="name" placeholder="Enter name" name="namename">
 					  </div>
-					 
+					 <br/>
 					  <div class="mb-3 mt-3">
-						<label for="email"  class="form-label">Email:</label>
+						<label for="email"  class="form-label">Email: </label>
 						<input type="email" size="12" class="form-control" id="email" placeholder="Enter email" name="email">
 					  </div>
+					   <br/>
 					  
 					  <div class="mb-3 mt-3">
-						<label for="number"  class="form-label">Your Number:</label>
+						<label for="number"  class="form-label">Your Number: </label>
 						<input type="number" size="12" class="form-control" id="number" placeholder="Enter number" name="number">
 					  </div>
-					  
-					  <label for="comment"class="form-label">Comments:</label>
+					   <br/>
+
+					  <label for="comment"class="form-label">Comments: </label>
 						<textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-					 
+					  <br/>
+
 					  <!-- <a href="https://wa.me/8585838365" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
 						  <i class="fa fa-whatsapp"></i>
 						  <span>Enquiry on WhatsApp</span>
 						</a> -->
-						<br>
+						<br/>
 						<button onclick="send_handle()" class="btn btn-success">Enquiry on WhatsApp</button>
 					</form>
 				
@@ -251,6 +254,10 @@ From custom designs to timeless classics, we build furniture that tells your sto
       </div>
     </section>
 
+<script>
+
+</script>
+
     <section class="featured-section">
       <div class="container">
         <div class="section-header">
@@ -285,6 +292,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
         </div>
       </div>
     </section>
+    
   `,
   styles: [`
     .hero {
@@ -577,7 +585,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 	width : 50%;
 	height : 100%;
 	background-color: rgba(73, 73, 77, 0.88);
-	z-index:99;
+	z-index:9999;
 	position: fixed;
 	display:none;
 	transform: translateX(50%);
