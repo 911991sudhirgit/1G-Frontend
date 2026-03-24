@@ -254,11 +254,9 @@ From custom designs to timeless classics, we build furniture that tells your sto
       </div>
     </section>
 
-<script>
 
-</script>
 <div class="chart">
-<div id="chartContainer" style="height: 300px; max-width: 50%; margin: 0px auto;"></div><canvas id="myChart"></canvas>
+<img src="assets/images/chart.png" class="img-fluid">
 </div>
     <section class="featured-section">
       <div class="container">
@@ -647,7 +645,9 @@ From custom designs to timeless classics, we build furniture that tells your sto
 .hidepopup{
 	display:none;	
 }
-
+.chart{
+text-align: center;
+}
     .cta-card p {
       color: var(--text-muted);
       margin-bottom: 2.5rem;
