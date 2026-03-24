@@ -33,7 +33,7 @@
             "scripts": [ 
               // "https://code.jquery.com/jquery-3.6.0.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "src/scripts/bargraph.js"
+              "src/scripts/bargraph.js",
               "src/scripts/app.js"]
           },
           "configurations": {

@@ -59,7 +59,7 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/poplogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">POP service</h3>
+		<h5 style="font-weight:bold;">POP service</h5>
 		<p> Modern POP (Plaster of Paris) designs blend architectural elegance with functional lighting to transform any ceiling into a masterpiece.
 </p>
 		<input type ="button" value="Get Quote" onClick="showpopup()">
@@ -68,7 +68,7 @@ import { SkeletonLoaderComponent } from '../../shared/skeleton-loader/skeleton-l
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/paintlogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Paint service</h3 >
+		<h5 style="font-weight:bold;">Paint service</h5 >
 		<p> The Professional Touch<br/>
 Transforming spaces with a stroke of perfection. Quality finishes that stand the test of time.</p>
 		<input type ="button" value="Get Quote" onClick="showpopup()">
@@ -77,7 +77,7 @@ Transforming spaces with a stroke of perfection. Quality finishes that stand the
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/lightlogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Electrical service</h3>
+		<h5 style="font-weight:bold;">Electrical service</h5>
 		<p> Professional & warm
 <br/>
 We craft lighting solutions that transform ordinary spaces into extraordinary experiences.
@@ -88,7 +88,7 @@ From concept to installation, Lighting service brings brilliance to every corner
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/constructionlogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Construction & ReConstruction service</h3 >
+		<h5 style="font-weight:bold;">Construction & ReConstruction service</h5 >
 		<p> Strong & reassuring
 <br/>
 Reconstruction service restores what matters most — your space, your comfort, your peace of mind.
@@ -100,7 +100,7 @@ From damage to done, we rebuild with precision, care, and craftsmanship you can 
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/doorlogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Door and Framing</h3 >
+		<h5 style="font-weight:bold;">Door and Framing</h5 >
 		<p> Bold & confident
 <br/>
 We deliver precision-built doors and framing solutions that define the character of every space.
@@ -112,7 +112,7 @@ Door and Framing service — where strength, style, and craftsmanship meet at ev
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/tileslogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Tiles service</h3 >
+		<h5 style="font-weight:bold;">Tiles service</h5 >
 		<p> Elegant & aspirational
 <br/>
 Tiles service brings together exquisite design and superior quality to transform every surface into a statement.
@@ -125,7 +125,7 @@ From floors to walls, we lay the foundation of spaces that inspire and endure.</
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/hardwarelogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Hardware service</h3 >
+		<h5 style="font-weight:bold;">Hardware service</h5 >
 		<p>  Strong & reliable
 <br/>
 Hardware service supplies and installs premium fittings, fixtures, and accessories that hold every space together.
@@ -136,7 +136,7 @@ From the smallest hinge to the grandest finish, we deliver quality you can see a
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/fabrication.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Fabrication service</h3 >
+		<h5 style="font-weight:bold;">Fabrication service</h5 >
 		<p>  Strong & industrial
 <br/>
 Fabrication service delivers precision-engineered metal and structural solutions built to the highest standards of quality and durability.
@@ -147,7 +147,7 @@ From concept to completion, we fabricate with skill, accuracy, and craftsmanship
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
 	<div class="servicecards text-center">
 		<img src="assets/images/furniturelogo.png" class="img-fluid logoservice">
-		<h3 style="font-weight:bold;">Furniture service</h3 >
+		<h5 style="font-weight:bold;">Furniture service</h5 >
 		<p> Furniture service creates beautifully crafted pieces that bring warmth, character, and purpose to every living space.
 From custom designs to timeless classics, we build furniture that tells your story for generations to come.
 </p>
@@ -168,22 +168,22 @@ From custom designs to timeless classics, we build furniture that tells your sto
 						<label for="namename" class="form-label">Your Name: </label>
 						<input type="name" size="12" class="form-control" id="name" placeholder="Enter name" name="namename">
 					  </div>
-					 <br/>
+					 
 					  <div class="mb-3 mt-3">
 						<label for="email"  class="form-label">Email: </label>
 						<input type="email" size="12" class="form-control" id="email" placeholder="Enter email" name="email">
 					  </div>
-					   <br/>
+					   
 					  
 					  <div class="mb-3 mt-3">
 						<label for="number"  class="form-label">Your Number: </label>
 						<input type="number" size="12" class="form-control" id="number" placeholder="Enter number" name="number">
 					  </div>
-					   <br/>
+					   
 
 					  <label for="comment"class="form-label">Comments: </label>
 						<textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-					  <br/>
+					  
 
 					  <!-- <a href="https://wa.me/8585838365" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
 						  <i class="fa fa-whatsapp"></i>
@@ -232,22 +232,22 @@ From custom designs to timeless classics, we build furniture that tells your sto
         <div class="categories-grid">
           <a routerLink="/search" [queryParams]="{propertyType: 'HOUSE'}" class="category-card">
             <div class="category-icon">🏘️</div>
-            <h3>Houses</h3>
+            <h5>Houses</h5>
             <p>Independent houses and villas</p>
           </a>
           <a routerLink="/search" [queryParams]="{propertyType: 'APARTMENT'}" class="category-card">
             <div class="category-icon">🏢</div>
-            <h3>Apartments</h3>
+            <h5>Apartments</h5>
             <p>Flats and apartments</p>
           </a>
           <a routerLink="/search" [queryParams]="{propertyType: 'LAND'}" class="category-card">
             <div class="category-icon">🌾</div>
-            <h3>Land</h3>
+            <h5>Land</h5>
             <p>Plots and land parcels</p>
           </a>
           <a routerLink="/search" [queryParams]="{propertyType: 'COMMERCIAL'}" class="category-card">
             <div class="category-icon">🏬</div>
-            <h3>Commercial</h3>
+            <h5>Commercial</h5>
             <p>Shops, offices, and more</p>
           </a>
         </div>
@@ -257,7 +257,9 @@ From custom designs to timeless classics, we build furniture that tells your sto
 <script>
 
 </script>
-
+<div class="chart">
+<div id="chartContainer" style="height: 300px; max-width: 50%; margin: 0px auto;"></div><canvas id="myChart"></canvas>
+</div>
     <section class="featured-section">
       <div class="container">
         <div class="section-header">
@@ -494,7 +496,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
       margin-bottom: 1.25rem;
       filter: drop-shadow(0 4px 8px rgba(14, 165, 233, 0.15));
     }
-    .category-card h3 {
+    .category-card h5 {
       margin-bottom: 0.75rem;
       color: var(--text);
       font-size: 1.25rem;
@@ -615,8 +617,11 @@ From custom designs to timeless classics, we build furniture that tells your sto
 
 .formdata{
 	text-align: center;
-	transform: translateY(50%);
+	transform: translateY(5%);
   color: #ffebcd;
+  margin: 0 auto;
+  width: 60%;
+  
 }
 .logoservice{
 	width: 50px;
@@ -643,10 +648,6 @@ From custom designs to timeless classics, we build furniture that tells your sto
 	display:none;	
 }
 
-.formdata{
-	text-align: center;
-	transform: translateY(50%);
-}
     .cta-card p {
       color: var(--text-muted);
       margin-bottom: 2.5rem;
