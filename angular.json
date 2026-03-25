@@ -33,9 +33,9 @@
             "scripts": [ 
               // "https://code.jquery.com/jquery-3.6.0.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.3.7.min.js",
-              //"src/scripts/bargraph.js",
-              "src/scripts/app.js"]
+             // "node_modules/bootstrap/dist/js/bootstrap.3.7.min.js",
+              "src/scripts/app.js"
+            ]
           },
           "configurations": {
             "production": {
