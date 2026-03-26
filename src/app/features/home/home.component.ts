@@ -663,6 +663,9 @@ From custom designs to timeless classics, we build furniture that tells your sto
 .chart{
 text-align: center;
 }
+.chart img{
+width : 80%;
+}
     .cta-card p {
       color: var(--text-muted);
       margin-bottom: 2.5rem;
