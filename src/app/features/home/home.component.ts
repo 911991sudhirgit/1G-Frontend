@@ -388,6 +388,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
     .search-box input {
       flex: 1;
       padding: 1.125rem 1.5rem;
+      color: #000;
       border: 2px solid var(--border);
       border-radius: var(--radius);
       font-size: 1rem;
@@ -815,7 +816,7 @@ body {
 
       .hero h1 { font-size: 2.5rem; }
       .hero-subtitle { font-size: 1.125rem; }
-      .search-box { flex-direction: column; }
+      .search-box { flex-direction: column; color: #000; }
       .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
 
       .popup{
