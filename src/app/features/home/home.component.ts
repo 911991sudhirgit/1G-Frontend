@@ -71,7 +71,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     </section>
 
      <div class="row nomargin">
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/poplogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">POP service</h5>
@@ -80,7 +80,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/paintlogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Paint service</h5 >
@@ -89,7 +89,7 @@ Transforming spaces with a stroke of perfection. Quality finishes that stand the
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/lightlogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Electrical service</h5>
@@ -100,7 +100,7 @@ From concept to installation, Lighting service brings brilliance to every corner
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/constructionlogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Construction & ReConstruction service</h5 >
@@ -111,8 +111,9 @@ From damage to done, we rebuild with precision, care, and craftsmanship you can 
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  </div>
+  <div class="row nomargin"> 
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/doorlogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Door and Framing</h5 >
@@ -124,7 +125,7 @@ Door and Framing service — where strength, style, and craftsmanship meet at ev
 	</div>
   </div>
   
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/tileslogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Tiles service</h5 >
@@ -135,9 +136,8 @@ From floors to walls, we lay the foundation of spaces that inspire and endure.</
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-   </div>
-  <div class="row nomargin"> 
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+ 
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/hardwarelogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Hardware service</h5 >
@@ -148,7 +148,7 @@ From the smallest hinge to the grandest finish, we deliver quality you can see a
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/fabrication.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Fabrication service</h5 >
@@ -159,7 +159,9 @@ From concept to completion, we fabricate with skill, accuracy, and craftsmanship
 		<input type ="button" value="Get Quote" onClick="showpopup()">
 	</div>
   </div>
-  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-2">
+  </div>
+  <div class="row nomargin"> 
+  <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/furniturelogo.png" class="img-fluid logoservice">
 		<h5 style="font-weight:bold;">Furniture service</h5 >
