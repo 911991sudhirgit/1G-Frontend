@@ -182,7 +182,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 		  <div class="formdata">
 				 <form action="/action_page.php">
 						<div class="mb-3 mt-3">
-						<label for="namename" class="form-label">Your Name: </label>
+						<label for="name" class="form-label">Your Name: </label>
 						<input type="name" size="12" class="form-control" id="name" placeholder="Enter name" name="namename">
 					  </div>
 					 
@@ -198,7 +198,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 					  </div>
 					   
 
-					  <label for="comment"class="form-label">Comments: </label>
+					  <label for="comment" class="form-label">Comments: </label>
 						<textarea class="form-control" rows="5" id="comment" name="text"></textarea>
 					  
 
