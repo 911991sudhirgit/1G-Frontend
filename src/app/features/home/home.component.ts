@@ -74,7 +74,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/poplogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">POP service</h5>
+		<h5 style="font-weight:bold; margin:5px;">POP service</h5>
 		<p> Modern POP (Plaster of Paris) designs blend architectural elegance with functional lighting to transform any ceiling into a masterpiece.
 </p>
 		<input type ="button" value="Get Quote" onClick="showpopup()">
@@ -83,7 +83,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/paintlogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Paint service</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Paint service</h5 >
 		<p> The Professional Touch<br/>
 Transforming spaces with a stroke of perfection. Quality finishes that stand the test of time.</p>
 		<input type ="button" value="Get Quote" onClick="showpopup()">
@@ -92,7 +92,7 @@ Transforming spaces with a stroke of perfection. Quality finishes that stand the
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/lightlogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Electrical service</h5>
+		<h5 style="font-weight:bold; margin:5px;">Electrical service</h5>
 		<p> Professional & warm
 <br/>
 We craft lighting solutions that transform ordinary spaces into extraordinary experiences.
@@ -103,7 +103,7 @@ From concept to installation, Lighting service brings brilliance to every corner
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/constructionlogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Construction & ReConstruction service</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Construction & ReConstruction service</h5 >
 		<p> Strong & reassuring
 <br/>
 Reconstruction service restores what matters most — your space, your comfort, your peace of mind.
@@ -116,7 +116,7 @@ From damage to done, we rebuild with precision, care, and craftsmanship you can 
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/doorlogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Door and Framing</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Door and Framing</h5 >
 		<p> Bold & confident
 <br/>
 We deliver precision-built doors and framing solutions that define the character of every space.
@@ -128,7 +128,7 @@ Door and Framing service — where strength, style, and craftsmanship meet at ev
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/tileslogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Tiles service</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Tiles service</h5 >
 		<p> Elegant & aspirational
 <br/>
 Tiles service brings together exquisite design and superior quality to transform every surface into a statement.
@@ -140,7 +140,7 @@ From floors to walls, we lay the foundation of spaces that inspire and endure.</
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/hardwarelogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Hardware service</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Hardware service</h5 >
 		<p>  Strong & reliable
 <br/>
 Hardware service supplies and installs premium fittings, fixtures, and accessories that hold every space together.
@@ -151,7 +151,7 @@ From the smallest hinge to the grandest finish, we deliver quality you can see a
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/fabrication.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Fabrication service</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Fabrication service</h5 >
 		<p>  Strong & industrial
 <br/>
 Fabrication service delivers precision-engineered metal and structural solutions built to the highest standards of quality and durability.
@@ -164,7 +164,7 @@ From concept to completion, we fabricate with skill, accuracy, and craftsmanship
   <div class="col-xs-12 col-sm-6  col-md-3 col-lg-3">
 	<div class="servicecards text-center">
 		<img src="assets/images/furniturelogo.png" class="img-fluid logoservice">
-		<h5 style="font-weight:bold;">Furniture service</h5 >
+		<h5 style="font-weight:bold; margin:5px;">Furniture service</h5 >
 		<p> Furniture service creates beautifully crafted pieces that bring warmth, character, and purpose to every living space.
 From custom designs to timeless classics, we build furniture that tells your story for generations to come.
 </p>
