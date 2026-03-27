@@ -193,7 +193,7 @@ From custom designs to timeless classics, we build furniture that tells your sto
 					   
 					  
 					  <div class="mb-3 mt-3">
-						<label for="number"  class="form-label">Your Number: </label>
+						<label for="number"  class="form-label">Your Mobile Number: </label>
 						<input type="number" size="12" class="form-control" id="number" placeholder="Enter number" name="number">
 					  </div>
 					   
