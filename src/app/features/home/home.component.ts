@@ -15,13 +15,13 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   template: `
    <carousel>
   <slide>
-    <a href="#" target="_blank"><img src="assets/images/carousel/1.jpg" alt="first slide" style="display: block; width: 100%; max-height:200px;"></a>
+    <a href="#" target="_blank" class="carouselimg"><img src="assets/images/carousel/1.jpg" alt="first slide" style="display: block; width: 100%; max-height:200px;"></a>
   </slide>
   <slide>
-    <a href="#" target="_blank"><img src="assets/images/carousel/2.jpg" alt="second slide" style="display: block; width: 100%; max-height:200px;"></a>
+    <a href="#" target="_blank" class="carouselimg"><img src="assets/images/carousel/2.jpg" alt="second slide" style="display: block; width: 100%; max-height:200px;"></a>
   </slide>
   <slide>
-    <a href="#" target="_blank"><img src="assets/images/carousel/3.jpg" alt="third slide" style="display: block; width: 100%; max-height:200px;"></a>
+    <a href="#" target="_blank" class="carouselimg"><img src="assets/images/carousel/3.jpg" alt="third slide" style="display: block; width: 100%; max-height:200px;"></a>
   </slide>
 </carousel>
 <br/>
@@ -774,6 +774,13 @@ body {
   letter-spacing: -1px;
 }
 
+.carouselimg img{
+transition: transform .2s;
+}
+
+.carouselimg img:hover{
+transform: scale(1.5); 
+}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
