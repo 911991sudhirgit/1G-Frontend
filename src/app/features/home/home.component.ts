@@ -779,7 +779,7 @@ transition: transform .2s;
 }
 
 .carouselimg img:hover{
-transform: scale(1.5); 
+transform: scale(1.2); 
 }
 
 /* RESPONSIVE CSS
