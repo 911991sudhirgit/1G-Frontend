@@ -56,6 +56,8 @@ function hidepopup1(){
 	$( "#popupid1" ).hide();
 }
 
+
+
 function send_handle() {
 	const name = document.getElementById("name").value;
 	const email = document.getElementById("email").value;
@@ -72,4 +74,10 @@ function send_handle() {
     window.open(url, '_blank');
 }
 
-
+function wtsapsharehandle(){
+	console.log("inside wtsapsharehandle");
+	const message = "Hello! Welcome to 1guntha.com please share our site link with your contacts. https://www.ekguntha.com";
+const encodedMessage = encodeURIComponent(message);
+const whatsappUrl = "https://wa.me/?text=" + encodeURIComponent(message);;
+window.open(whatsappUrl, '_blank');
+}

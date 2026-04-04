@@ -27,9 +27,11 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 <br/>
 
 
-    <div class="loancalcicon" id="loancalcid" onClick="showpopup1()">
-	<img src="assets/images/calcicon.jpg">
-	
+ <div class="loancalcicon" id="loancalcid" onClick="showpopup1()">
+	    <img src="assets/images/calcicon.jpg">
+  </div>
+   <div class="loancalcicon" id="wtsapshareid" onClick="wtsapsharehandle()" style="top:60%">
+	    <img src="assets/images/whatsapicon.png">
   </div>
   <div class="popup" id="popupid1" >
 	  <div class="closeicon popupody" id="closeiconid">
