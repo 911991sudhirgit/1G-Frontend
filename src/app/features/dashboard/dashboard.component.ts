@@ -29,6 +29,25 @@ interface Alert {
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, SkeletonLoaderComponent],
   template: `
+  <meta name="keywords" content="real estate Ahilyanagar, properties for sale Ahilyanagar, buy property Ahilyanagar, sell property Ahilyanagar, Kalpana Developers, real estate agent Ahilyanagar">
+  <meta name="description" content="Kalpana Developers — trusted real estate agency in Ahilyanagar. Buy and sell residential & commercial properties with expert local guidance. Explore listings today.">
+  <link rel="canonical" href="https://www.kalpanadevelopers.com/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Kalpana Developers",
+  "url": "https://www.kalpanadevelopers.com",
+  "description": "Buy and sell properties in Ahilyanagar with Kalpana Developers.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Ahilyanagar",
+    "addressRegion": "Maharashtra",
+    "addressCountry": "IN"
+  },
+  "areaServed": "Ahilyanagar"
+}
+</script>
     <div class="dashboard-page">
       <div class="container">
         <div class="dashboard-header">
